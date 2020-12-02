@@ -12,11 +12,13 @@
     </style>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <link
       rel="stylesheet"
       href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
     />
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   </head>
   <body>
     <div id="wrapper">
@@ -148,6 +150,8 @@
       <button type="button" id="getData">Get Data</button>
 
       <script type="text/javascript">
+        // Start of JQuery Code
+
         $("document").ready(function () {
           $("#wrapper").css("width", 500);
           $("#wrapper").css("margin", "auto");
@@ -165,7 +169,199 @@
           $("em + a").css("color", "orange");
 
           $("p > em").css("color", "gray");
-        }); // end of JQuery code
+
+          $("#oListIndent li:nth-child(3)").css("color", "red");
+
+          $("li[name]").html("'and the Goblet of Fire'");
+
+          $("input[type='text']#yourName").val("Derek");
+
+          $("input[type='text']#listStuff").val("Start of a list...");
+          $("a[href*='google']").css("font-weight", "bolder");
+
+          $("img[alt^='NTT']").css({
+            "border-color": "black",
+            "border-width": "1px",
+            "border-style": "solid",
+          });
+
+          $("a[href^='http://g'").css("color", "cyan");
+
+          $("a[href^='mailto:'").css("color", "yellow");
+
+          $("img[alt^='NTT'").width(150).height(150);
+
+          $("a[href$='pdf']").css("color", "green");
+
+          $("#tableData tr:even").css("background-color", "#FFFDD0");
+          $("#tableData tr:odd").css("background-color", "#F0F8FF");
+
+          $("#tableData tr:first").css({
+            "background-color": "#001A57",
+            color: "white",
+          });
+
+          $("#tableData tr:last").css({
+            "background-color": "#001A57",
+            color: "red",
+          });
+
+          $("#oListTypes li:not(:contains(and))").css("color", "blue");
+
+          $("a:contains(gravida)").css("color", "green");
+
+          $("p:has(i)").hide();
+
+          //alert($("p:has(i)").html());
+
+          $("p:has(i)").html("<i>Some normal text</i>").show();
+
+          $("p:has(i)").append(" I go at the end.");
+
+          $("p:has(i)").prepend(" I go at the start...");
+
+          $("p:has(i)").before("<p id='before_p'>A new paragraph before</p>");
+
+          $("p:has(i)").after("<p id='after_p'>A new paragraph after</p>");
+
+          $("#after_p").click(function () {
+            $(this).remove();
+          });
+
+          $("#before_p").click(function () {
+            $(this).replaceWith("<p>I am a new paragraph</p>");
+          });
+
+          $("#oListIndent li").each(function (index) {
+            var inputListStuff = $("#listStuff").val();
+            $("#listStuff").val(inputListStuff + ", " + $(this).text());
+          });
+
+          $("#oListIndent li").addClass("Harry_Potter");
+          $(".Harry_Potter").css("color", "gray");
+
+          $("#oListIndent li").click(function () {
+            $(this).toggleClass("highlight");
+            var bgColor = $(this).css("background-color");
+            $("input[type=text]#yourName").val(bgColor);
+          });
+
+          $("#logo2").click(function () {
+            var imgName = $(this).attr("src");
+            $("input[type=text]#yourName").val(imgName);
+          });
+
+          $("#logo2").mouseover(function () {
+            $("#logo2").attr("src", "./images/ntt-logo-horz.png");
+          });
+
+          $("#logo2").mouseout(function () {
+            $("#logo2").attr("src", "./images/ntt-logo.png");
+          });
+
+          $("h2").hover(
+            function () {
+              $("h2").css("color", "green");
+            },
+            function () {
+              $("h2").css("color", "red");
+            }
+          );
+
+          $("#logo2").dblclick(function () {
+            $(this).attr("src", "./images/ntt-logo-plastic.png");
+          });
+
+          $(document).click(function (e) {
+            $("#mClickXPos").val(e.pageX);
+            $("#mClickYPos").val(e.pageY);
+          });
+
+          $(document).mousemove(function (e) {
+            $("#mMoveXPos").val(e.screenX);
+            $("#mMoveYPos").val(e.screenY);
+          });
+
+          $(document).keypress(function (e) {
+            var keyPressed = String.fromCharCode(e.which);
+            $("#keyPressed").val(keyPressed);
+          });
+
+          $("#inputFormEvent").blur(function () {
+            $("#formEvent").text("Left Input Element");
+          });
+
+          $("#inputFormEvent").change(function () {
+            $("#formEvent").text("Input Element Changed");
+          });
+
+          $("#inputFormEvent").focus(function () {
+            $("#formEvent").text("Input Element Focused");
+          });
+
+          $("#inputFormEvent").select(function () {
+            $("#formEvent").text("Input Element Selected");
+          });
+
+          function showWhatTouched(e) {
+            console.debug(e.data.message);
+          }
+
+          var bsMsg = { message: "Best Selling Touched" };
+          var teMsg = { message: "Track Events Touched" };
+
+          $("#bestSelling").on("mouseover", bsMsg, showWhatTouched);
+          $("#trackEvents").on("mouseover", teMsg, showWhatTouched);
+
+          var accidentImgs = ["1.jpg", "2.jpg", "3.jpg", "4.jpg"];
+          var focusImg = 1;
+          $("#accident").click(function () {
+            var image = accidentImgs[focusImg];
+            focusImg++;
+            if (focusImg > 3) {
+              focusImg = 0;
+            }
+            $("#accident").attr("src", "./images/" + image);
+          });
+
+          $("#p_one").click(function () {
+            $(this).hide();
+          });
+
+          $("#p_two").click(function () {
+            $(this).fadeOut(2000);
+            $("#p_one").fadeToggle(2000);
+          });
+
+          $("#logo2").click(function () {
+            $(this).fadeTo("slow", 0.5);
+          });
+
+          $("td:contains('Bonds')").click(function () {
+            $("tr:has(td:contains('Bonds'))").slideUp(1000);
+          });
+
+          $("td:contains('Hall')").click(function () {
+            $("tr:has(td:contains('Bonds'))").slideDown(1000);
+          });
+
+          $("#p_one").click(function () {
+            $(this).css("position", "relative");
+            $("#p_one").animate(
+              {
+                left: 300,
+                opacity: 0.5,
+                "font-size": "22px",
+                width: 300,
+              },
+              2000,
+              "easeInQuad",
+              function () {
+                //alert("All Done!");
+              }
+            );
+          });
+        }); // end of JQuery Code
       </script>
     </div>
   </body>
