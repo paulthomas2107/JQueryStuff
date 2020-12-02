@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JQuery Tutorial</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+
+<h3>Playing with Server Data</h3>
+<div>
+  <h3>Message from the Server:</h3>
+  <p id="first">Waiting for Message</p>
+</div>
+
+<form id="theForm">
+  <button type="button" id="oneButton">Get Text</button><br />
+
+<div>
+  <h3>Double Number on the Server:</h3>
+  <span></span><br />
+</div>
+
+<input type="text" name="data" id="data"></input>
+<button type="button" id="twoButton">Double Number</button><br /><br />
+<button type="button" id="threeButton">Get XML Data</button>
+
+</form>
+
+<div>
+  <h3>XML Data from the Server:</h3>
+</div>
+
+<div id="customers">Customer Information</div>
+
+<script type="text/javascript">
+
+$("document").ready(function(){
+  $("#oneButton").on("click", getInfoFromServer);
+  $("#twoButton").on("click", getDblFromServer);
+  $("#threeButton").on("click", getXMLFromServer);
+
+});
+
+function getInfoFromServer() {
+
+  $.ajax({
+    type: "GET",
+    url: "textFromServer.txt",
+    success: postToPage
+  });
+}
+
+function postToPage(data, status) {
+  $('#first').text(data);
+}
+
+
+function getDblFromServer() {
+$('span').load("http://localhost:8082/GetDouble.php", 
+    $("#theForm").serializeArray()
+);
+}
+
+function getXMLFromServer() {
+  $.ajax({
+    type: "GET",
+    url: "customers.xml",
+    dataType: "xml",
+    success: postToPageTwo
+  })
+}
+
+function postToPageTwo(data, status) {
+  $(data).find('customer').each(function() {
+    var id = $(this).attr('id');
+    var firstName = $(this).find('firstName').text();
+    var lastName = $(this).find('lastName').text();
+    var street = $(this).find('street').text();
+    var city = $(this).find('city').text();
+    var zip = $(this).find('zip').text();
+
+    $('<div class="firstName"><div>').html(firstName).appendTo('#customers');
+    $('<div class="lastName "><div>').html(lastName).appendTo('#customers');
+    $('<div class="street"><div>').html(street).appendTo('#customers');
+    $('<div class="city"><div>').html(city).appendTo('#customers');
+    $('<div class="zip"><div>').html(zip).appendTo('#customers');
+
+
+  });
+}
+</script>
+</body>
+</html>
